@@ -74,160 +74,173 @@
        Switching data-theme on <html> swaps every color instantly.
        ============================================================ */
     :root {
-      /* Claude-inspired Light Theme */
-      --bg-primary: #F9F8F6;
-      --bg-secondary: #FFFFFF;
-      --bg-tertiary: #F5F5F4;
-      --text-primary: #2D3139;
-      --text-secondary: #5C5F66;
-      --text-tertiary: #8A8E97;
-      --border-color: #E6E6E6;
-      --accent-color: #D4A373;
-      --accent-hover: #C59260;
-      --user-bubble-bg: #F0F4F9;
-      --ai-bubble-bg: transparent;
-      --input-bg: #FFFFFF;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-      --radius-sm: 6px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, monospace;
-      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: "Source Serif 4", Georgia, serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur: 0.28s;
+      --dur-fast: 0.14s;
+      --dur-slow: 0.44s;
+      /* Radius scale: each step is a deliberate jump, not a nudge, so size communicates
+         hierarchy at a glance — tight controls (buttons, chips, inputs) vs. generous
+         content containers (cards, composer, modals). Only true pills (tags/segmented
+         controls) use --radius-full. */
+      --radius-xs: 5px;
+      --radius-sm: 9px;
+      --radius-md: 16px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --radius-full: 999px;
+
+      /* Accent ramp — one hue (258, a blue-slate), ten OKLCH lightness steps authored
+         by hand. Unlike the old ~4 hardcoded hexes, each step here is an even
+         perceptual jump from its neighbors — that's what OKLCH buys you over hex/HSL.
+         Chroma peaks mid-ramp and tapers toward the ends to avoid gamut clipping. */
+      --accent-50:  oklch(96% 0.014 258);
+      --accent-100: oklch(91% 0.028 258);
+      --accent-200: oklch(83% 0.045 258);
+      --accent-300: oklch(74% 0.062 258);
+      --accent-400: oklch(65% 0.095 258);
+      --accent-500: oklch(56% 0.105 258);
+      --accent-600: oklch(47% 0.100 258);
+      --accent-700: oklch(38% 0.075 258);
+      --accent-800: oklch(29% 0.060 258);
+      --accent-900: oklch(21% 0.045 258);
+
+      /* Warm ramp — same methodology, hue 45 (terracotta). The one hue in the whole
+         palette that's allowed to visually interrupt the blue-on-black monotony. */
+      --warm-50:  oklch(96% 0.020 75);
+      --warm-100: oklch(91% 0.038 75);
+      --warm-200: oklch(83% 0.065 75);
+      --warm-300: oklch(74% 0.095 75);
+      --warm-400: oklch(65% 0.115 75);
+      --warm-500: oklch(58% 0.130 75);
+      --warm-600: oklch(50% 0.120 75);
+      --warm-700: oklch(42% 0.100 75);
+      --warm-800: oklch(33% 0.075 75);
+      --warm-900: oklch(24% 0.050 75);
     }
 
+    /* Dark theme (default — matches Luca AI) */
     [data-theme="dark"] {
-      /* Claude-inspired Dark Theme */
-      --bg-primary: #1A1A1A;
-      --bg-secondary: #242424;
-      --bg-tertiary: #2F2F2F;
-      --text-primary: #ECECEC;
-      --text-secondary: #A0A0A0;
-      --text-tertiary: #6B6B6B;
-      --border-color: #333333;
-      --accent-color: #E0B080;
-      --accent-hover: #D4A373;
-      --user-bubble-bg: #2F3540;
-      --ai-bubble-bg: transparent;
-      --input-bg: #242424;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    /* Dark theme (default — Claude-inspired) */
-    [data-theme="dark"] {
-      --bg: #1A1A1A;
-      --bg-raised: #242424;
-      --bg-hover: #2F2F2F;
-      --border: #383838;
-      --border-faint: #2A2A2A;
-      --text: #ECECEC;
-      --text-secondary: #A0A0A0;
-      --text-tertiary: #6B6B6B;
-      --accent: #D4A373;
-      --accent-dim: rgba(212, 163, 115, 0.08);
-      --accent-dim2: rgba(212, 163, 115, 0.25);
-      --accent-text: #E0B080;
-      --accent-solid: #B88658;
-      --accent-solid-hover: #C59260;
-      --card-bg: #1F1F1F;
-      --card-border: #2F2F2F;
-      --input-bg: #242424;
-      --glow: rgba(212, 163, 115, 0.06);
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);
-      --shadow-md: 0 2px 6px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.35);
-      --shadow-lg: 0 4px 12px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.4);
-      --shadow-modal: 0 8px 24px rgba(0,0,0,0.4), 0 24px 64px rgba(0,0,0,0.5);
-      --overlay: rgba(0,0,0,0.6);
-      --warm: #D4A373;
-      --warm-dim: rgba(212, 163, 115, 0.1);
-      --warm-dim2: rgba(212, 163, 115, 0.3);
-      --warm-text: #E0B080;
-      --warm-solid: #B88658;
-      --warm-solid-hover: #C59260;
-      --error-text: #EF887A;
-      --error-icon: #E57363;
-      --error-bg: rgba(229, 115, 99, 0.08);
-      --error-border: rgba(229, 115, 99, 0.2);
-      --error-hover: rgba(229, 115, 99, 0.12);
-      --danger-text: #E57363;
-      --danger-hover: rgba(229, 115, 99, 0.12);
-      --warn-text: #F5C56A;
-      --limit-text: #E57363;
+      --bg: #08090A;
+      --bg-raised: #131315;
+      --bg-hover: #1C1C1F;
+      --border: #29292D;
+      --border-faint: #17171A;
+      --text: #EDEDEF;
+      --text-secondary: #94949C;
+      --text-tertiary: #4E4E56;
+      --accent: var(--accent-400);
+      --accent-dim: oklch(65% 0.078 258 / 8%);
+      --accent-dim2: oklch(65% 0.078 258 / 28%);
+      --accent-text: var(--accent-300);
+      --accent-solid: var(--accent-800);
+      --accent-solid-hover: var(--accent-700);
+      --card-bg: #111214;
+      --card-border: #1E1E22;
+      --input-bg: #0E0F10;
+      --glow: oklch(65% 0.078 258 / 6%);
+      /* Elevation: four real steps, each a tight contact shadow layered under a soft
+         ambient one — not one blurry box-shadow scaled up. --shadow-sm/md/lg keep their
+         names so every existing usage upgrades automatically; --shadow-modal is the new
+         top step for things that must read as floating above everything else. */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.5), 0 1px 1px rgba(0,0,0,0.3);
+      --shadow-md: 0 2px 6px rgba(0,0,0,0.45), 0 10px 28px -6px rgba(0,0,0,0.55);
+      --shadow-lg: 0 4px 14px rgba(0,0,0,0.45), 0 22px 54px -10px rgba(0,0,0,0.65);
+      --shadow-modal: 0 8px 24px rgba(0,0,0,0.5), 0 36px 80px -14px rgba(0,0,0,0.7);
+      --overlay: rgba(4,6,10,0.6);
+      /* Warm secondary accent — reserved for things that should interrupt the blue
+         monotony (active recording) the way red already does for destructive
+         actions. Note: Image Studio's Generate CTA was migrated to the blue
+         accent gradient to match the primary action language of the rest of
+         the UI; the warm palette is now reserved for active recording only. */
+      --warm: var(--warm-400);
+      --warm-dim: oklch(65% 0.115 75 / 10%);
+      --warm-dim2: oklch(65% 0.115 75 / 30%);
+      --warm-text: var(--warm-300);
+      --warm-solid: var(--warm-800);
+      --warm-solid-hover: var(--warm-700);
+      --error-text: var(--error-text);
+      --error-icon: var(--error-icon);
+      --error-bg: var(--error-bg);
+      --error-border: var(--error-border);
+      --error-hover: var(--error-hover);
+      --danger-text: var(--error-icon);
+      --danger-hover: var(--danger-hover);
+      --warn-text: var(--warn-text);
+      --limit-text: var(--error-icon);
       --mic-active: var(--warm-text);
       --mic-active-bg: var(--warm-dim);
-      --offline-text: #F5C56A;
-      --offline-bg: rgba(245, 197, 106, 0.08);
-      --offline-border: rgba(245, 197, 106, 0.15);
-      --btn-primary-text: #FFFFFF;
-      --avatar-initial: #FFFFFF;
-      --code-text: #ECECEC;
-      --tok-kw: #C792EA;
-      --tok-str: #89DDFF;
-      --tok-com: #6B7280;
-      --tok-num: #F5C56A;
-      --tok-fn: #7BC9F7;
-      --tok-tag: #F07178;
-      --tok-attr: #FFCB6B;
-      --tok-punc: #89DDFF;
-      --pro-bg1: #24282E;
-      --pro-bg2: #1F2228;
-      --pro-border: rgba(212, 163, 115, 0.2);
-      --backdrop-bg: rgba(0,0,0,0.5);
+      --offline-text: var(--offline-text);
+      --offline-bg: var(--offline-bg);
+      --offline-border: var(--offline-border);
+      --btn-primary-text: var(--btn-primary-text);
+      --avatar-initial: var(--avatar-initial);
+      --code-text: var(--code-text);
+      --tok-kw: var(--tok-kw);
+      --tok-str: var(--tok-str);
+      --tok-com: var(--tok-com);
+      --tok-num: var(--tok-num);
+      --tok-fn: var(--tok-fn);
+      --tok-tag: var(--tok-tag);
+      --tok-attr: var(--offline-text);
+      --tok-punc: var(--tok-punc);
+      --pro-bg1: #171B24;
+      --pro-bg2: #101318;
+      --pro-border: oklch(65% 0.078 258 / 20%);
+      --backdrop-bg: var(--backdrop-bg);
     }
 
-    /* Light theme - Claude-inspired */
+    /* Light theme */
     [data-theme="light"] {
-      --bg: #F9F8F6;
+      --bg: #F5F6F8;
       --bg-raised: #FFFFFF;
-      --bg-hover: #F5F5F4;
-      --border: #E6E6E6;
-      --border-faint: #EBEBE9;
-      --text: #2D3139;
-      --text-secondary: #5C5F66;
-      --text-tertiary: #8A8E97;
-      --accent: #B88658;
-      --accent-dim: rgba(184, 134, 88, 0.06);
-      --accent-dim2: rgba(184, 134, 88, 0.18);
-      --accent-text: #A67246;
-      --accent-solid: #B88658;
-      --accent-solid-hover: #A67246;
+      --bg-hover: #ECEEF0;
+      --border: #D8DADE;
+      --border-faint: #E8E9EC;
+      --text: #111318;
+      --text-secondary: #5C5E66;
+      --text-tertiary: #9496A0;
+      --accent: var(--accent-600);
+      --accent-dim: oklch(56% 0.088 258 / 7%);
+      --accent-dim2: oklch(56% 0.088 258 / 18%);
+      --accent-text: var(--accent-700);
+      --accent-solid: var(--accent-800);
+      --accent-solid-hover: var(--accent-700);
       --card-bg: #FFFFFF;
-      --card-border: #E8E8E6;
-      --input-bg: #F5F5F4;
-      --glow: rgba(184, 134, 88, 0.05);
-      --shadow-sm: 0 1px 2px rgba(20,20,30,0.04), 0 1px 1px rgba(20,20,30,0.03);
-      --shadow-md: 0 2px 6px rgba(20,20,30,0.05), 0 8px 20px rgba(20,20,30,0.08);
-      --shadow-lg: 0 4px 12px rgba(20,20,30,0.06), 0 16px 40px rgba(20,20,30,0.1);
-      --shadow-modal: 0 8px 20px rgba(20,20,30,0.07), 0 24px 56px rgba(20,20,30,0.12);
+      --card-border: #E2E4E8;
+      --input-bg: #F0F1F4;
+      --glow: oklch(56% 0.088 258 / 5%);
+      --shadow-sm: 0 1px 2px rgba(20,20,30,0.05), 0 1px 1px rgba(20,20,30,0.04);
+      --shadow-md: 0 2px 6px rgba(20,20,30,0.06), 0 10px 26px -6px rgba(20,20,30,0.10);
+      --shadow-lg: 0 4px 14px rgba(20,20,30,0.07), 0 20px 48px -10px rgba(20,20,30,0.14);
+      --shadow-modal: 0 8px 22px rgba(20,20,30,0.08), 0 32px 70px -14px rgba(20,20,30,0.18);
       --overlay: rgba(255,255,255,0.7);
-      --warm: #B88658;
-      --warm-dim: rgba(184, 134, 88, 0.07);
-      --warm-dim2: rgba(184, 134, 88, 0.2);
-      --warm-text: #A67246;
-      --warm-solid: #B88658;
-      --warm-solid-hover: #A67246;
-      --error-text: #C62828;
-      --error-icon: #D32F2F;
-      --error-bg: rgba(211, 47, 47, 0.05);
-      --error-border: rgba(211, 47, 47, 0.15);
-      --error-hover: rgba(211, 47, 47, 0.08);
-      --danger-text: #D32F2F;
-      --danger-hover: rgba(211, 47, 47, 0.08);
+      --warm: var(--warm-700);
+      --warm-dim: oklch(58% 0.130 75 / 7%);
+      --warm-dim2: oklch(58% 0.130 75 / 20%);
+      --warm-text: var(--warm-700);
+      --warm-solid: var(--warm-700);
+      --warm-solid-hover: var(--warm-600);
+      --error-text: #B91C1C;
+      --error-icon: #DC2626;
+      --error-bg: rgba(220,38,38,0.06);
+      --error-border: rgba(220,38,38,0.18);
+      --error-hover: rgba(220,38,38,0.10);
+      --danger-text: #DC2626;
+      --danger-hover: rgba(220,38,38,0.10);
       --warn-text: #B45309;
-      --limit-text: #D32F2F;
+      --limit-text: #DC2626;
       --mic-active: var(--warm-text);
       --mic-active-bg: var(--warm-dim);
       --offline-text: #B45309;
-      --offline-bg: rgba(180, 83, 9, 0.06);
-      --offline-border: rgba(180, 83, 9, 0.12);
+      --offline-bg: rgba(180,83,9,0.08);
+      --offline-border: rgba(180,83,9,0.15);
       --btn-primary-text: #FFFFFF;
       --avatar-initial: #FFFFFF;
-      --code-text: #2D3139;
+      --code-text: #1F2937;
       --tok-kw: #7C3AED;
       --tok-str: #059669;
       --tok-com: #9CA3AF;
@@ -238,8 +251,8 @@
       --tok-punc: #6B7280;
       --pro-bg1: #EFF6FF;
       --pro-bg2: #DBEAFE;
-      --pro-border: rgba(184, 134, 88, 0.15);
-      --backdrop-bg: rgba(0,0,0,0.25);
+      --pro-border: oklch(56% 0.088 258 / 20%);
+      --backdrop-bg: rgba(0,0,0,0.3);
     }
 
     /* ============================================================
@@ -1048,37 +1061,37 @@
    Maps onboarding-style var names to what the chat CSS expects.
    ═══════════════════════════════════════════════════════════ */
 [data-theme="dark"] {
-  --raised: #1A1A1A;
-  --hover: #242424;
-  --borderFaint: #2A2A2A;
-  --muted: #8E8E93;
-  --dim: #5C5C5E;
-  --accentDim: rgba(212, 163, 115, 0.08);
-  --accentDim2: rgba(212, 163, 115, 0.25);
-  --accentText: #D4A373;
-  --send: #2A2A2A;
-  --sendHover: #343434;
-  --codeBg: #0D0D0D;
-  --composer-bg: #242424;
-  --composer-border: #3A3A3A;
-  --hero-glow-from: rgba(212, 163, 115, 0.04);
+  --raised: #131315;
+  --hover: #1C1C1F;
+  --borderFaint: #17171A;
+  --muted: #94949C;
+  --dim: #4E4E56;
+  --accentDim: var(--accent-dim);
+  --accentDim2: var(--accent-dim2);
+  --accentText: var(--accent-text);
+  --send: var(--accent-solid);
+  --sendHover: var(--accent-solid-hover);
+  --codeBg: #0C0D0F;
+  --composer-bg: #17181B;
+  --composer-border: #303136;
+  --hero-glow-from: oklch(65% 0.095 258 / 3%);
   --hero-glow-to: transparent;
 }
 [data-theme="light"] {
   --raised: #FFFFFF;
-  --hover: #F5F5F4;
-  --borderFaint: #E8E8E6;
-  --muted: #6B6B6D;
-  --dim: #9C9C9E;
-  --accentDim: rgba(212, 163, 115, 0.06);
-  --accentDim2: rgba(212, 163, 115, 0.18);
-  --accentText: #B88658;
-  --send: #ECECEC;
-  --sendHover: #E2E2E2;
-  --codeBg: #FAFAF9;
-  --composer-bg: #F5F5F4;
-  --composer-border: #D8D8D6;
-  --hero-glow-from: rgba(212, 163, 115, 0.05);
+  --hover: #ECEEF0;
+  --borderFaint: #E8E9EC;
+  --muted: #5C5E66;
+  --dim: #9496A0;
+  --accentDim: var(--accent-dim);
+  --accentDim2: var(--accent-dim2);
+  --accentText: var(--accent-text);
+  --send: var(--accent-solid);
+  --sendHover: var(--accent-solid-hover);
+  --codeBg: #F0F1F4;
+  --composer-bg: #FFFFFF;
+  --composer-border: #C9CCD3;
+  --hero-glow-from: oklch(56% 0.088 258 / 5%);
   --hero-glow-to: transparent;
 }
 
@@ -1482,23 +1495,22 @@
     .suggestion-btn:active { transform: translateY(0) scale(0.98); }
 
     /* Messages */
-    .messages-container { width: 100%; max-width: 740px; margin: 0 auto; padding: 32px 0 16px; display: flex; flex-direction: column; gap: 28px; }
+    .messages-container { width: 100%; max-width: 700px; margin: 0 auto; padding: 28px 0 12px; display: flex; flex-direction: column; gap: 24px; }
     .msg-row { 
-      display: flex; gap: 14px; align-items: flex-start; 
-      opacity: 0; animation: msg-slide-up 0.4s var(--ease) forwards;
+      display: flex; gap: 12px; align-items: flex-start; 
+      opacity: 0; animation: msg-slide-up 0.35s var(--ease) forwards;
     }
     .msg-row.no-motion { animation: luca-msg var(--dur-slow) var(--ease); }
     .msg-row.user { justify-content: flex-end; }
     .msg-row:hover .msg-actions { opacity: 1; pointer-events: auto; }
     .msg-bubble-user { 
-      background: var(--bg-raised); border-radius: var(--radius-lg); 
-      padding: 12px 18px; font-size: 15px; color: var(--text); 
-      line-height: 1.6; max-width: 80%;
+      background: var(--raised); border-radius: var(--radius-lg); 
+      padding: 11px 16px; font-size: 15px; color: var(--text); 
+      line-height: 1.55; max-width: 80%;
       transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      letter-spacing: -0.002em;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
-    .msg-bubble-user:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .msg-bubble-user:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); background: var(--bg-hover); }
     .msg-bubble-attachments { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
     .msg-bubble-attachments .attachment-chip { background: var(--hover); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 8px; font-size: 12px; max-width: 240px; }
 
@@ -1586,7 +1598,7 @@
     .artifact-download-all-btn:hover { background: var(--border); }
     .artifact-download-all-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .artifact-download-all-btn.loading { opacity: .6; pointer-events: none; }
-    .msg-bubble-assistant { flex: 1; min-width: 0; font-size: 16px; line-height: 1.75; color: var(--text); letter-spacing: -0.003em; animation: message-enter 0.4s var(--ease) forwards; }
+    .msg-bubble-assistant { flex: 1; min-width: 0; font-size: 15.5px; line-height: 1.7; color: var(--text); letter-spacing: -0.003em; animation: message-enter 0.4s var(--ease) forwards; }
     .msg-text p { margin: 0 0 12px; }
     .msg-text p:last-child { margin-bottom: 0; }
     .msg-text h1 { font-size: 19px; font-weight: 600; margin: 4px 0 10px; letter-spacing: -0.01em; }
@@ -1797,27 +1809,27 @@
     .scroll-bottom-btn:hover svg { transform: translateY(2px); }
 
     /* Composer */
-    .composer-wrapper { padding: 12px 24px 28px; width: 100%; max-width: 760px; margin: 0 auto; transition: padding var(--dur) var(--ease); }
+    .composer-wrapper { padding: 8px 20px 22px; width: 100%; max-width: 740px; margin: 0 auto; transition: padding var(--dur) var(--ease); }
     .composer-wrapper.composer-centered { padding: 0; max-width: 100%; }
     .composer-card { 
       background: var(--composer-bg); 
       border: 1px solid var(--composer-border); 
-      border-radius: 18px; 
-      padding: 16px 16px 12px; 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.12); 
+      border-radius: var(--radius-lg); 
+      padding: 14px 14px 10px; 
+      box-shadow: 0 2px 6px rgba(0,0,0,0.45), 0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04); 
       transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur-fast) var(--ease-spring); 
       position: relative; 
     }
-    .composer-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 12px 48px rgba(0,0,0,0.15); }
+    .composer-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 16px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05); }
     .composer-card:focus-within { 
-      border-color: var(--accent-dim2); 
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 16px 56px rgba(0,0,0,0.18), 0 0 0 3px var(--accent-dim); 
-      transform: translateY(-2px);
+      border-color: var(--accentDim2); 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 3px var(--accentDim); 
+      transform: translateY(-1px);
     }
-    .composer-card.drag-over { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 16px 56px rgba(0,0,0,0.18), 0 0 0 3px var(--accent-dim2); }
-    .composer-input { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-size: 16px; font-family: inherit; resize: none; max-height: 220px; padding: 6px 6px 14px; line-height: 1.55; }
+    .composer-card.drag-over { border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 3px var(--accentDim2); }
+    .composer-input { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-size: 15.5px; font-family: inherit; resize: none; max-height: 200px; padding: 4px 4px 12px; line-height: 1.5; }
     .composer-input::placeholder { color: var(--dim); }
-    .composer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .composer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 
     /* Drag-and-drop overlay */
     .composer-dropzone {
@@ -1882,39 +1894,37 @@
 
     /* Send & Mic */
     .send-btn { 
-      width: 36px; height: 36px; border-radius: 10px; 
-      background: var(--bg-raised); display: flex; align-items: center; justify-content: center; 
-      color: var(--text-secondary); transform: scale(1); 
+      width: 32px; height: 32px; border-radius: var(--radius-md); 
+      background: var(--border); display: flex; align-items: center; justify-content: center; 
+      color: var(--dim); transform: scale(0.95); 
       transition: all 0.2s var(--ease-spring);
       position: relative; overflow: hidden;
-      border: 1px solid var(--border-faint);
     }
     .send-btn::after {
       content: ''; position: absolute; inset: 0; border-radius: inherit;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
       opacity: 0; transition: opacity var(--dur-fast) var(--ease);
     }
     .send-btn:active::after { opacity: 1; }
-    .send-btn:hover:not(:disabled) { background: var(--bg-hover); transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .send-btn:hover { transform: scale(1); background: var(--bg-hover); }
     .send-btn.active { 
-      background: linear-gradient(135deg, var(--accent), var(--accent-hover)); 
-      color: #FFFFFF; 
-      box-shadow: 0 2px 10px rgba(212, 163, 115, 0.35), 0 0 0 3px rgba(212, 163, 115, 0.15); 
+      background: linear-gradient(135deg,var(--accent-300),var(--accent-600)); 
+      color: var(--btn-primary-text); 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15); 
       transform: scale(1);
-      border-color: transparent;
+      animation: bubble-pop 0.3s var(--ease-spring);
     }
-    .send-btn.active:hover { filter: brightness(1.08); transform: translateY(-1px) scale(1.05); box-shadow: 0 4px 16px rgba(212, 163, 115, 0.45); }
+    .send-btn.active:hover { filter: brightness(1.05); transform: translateY(-2px) scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
     .send-btn.active:active { transform: scale(0.95); }
     .send-btn.generating { 
       background: var(--text); color: var(--bg); transform: scale(1); 
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
       animation: glow-pulse 2s ease-in-out infinite;
     }
     .send-btn.generating:hover { opacity: 0.9; transform: scale(1.05); }
-    .send-btn svg { width: 17px; height: 17px; transition: transform 0.2s var(--ease-spring); }
-    .send-btn:hover:not(:disabled) svg { transform: scale(1.1); }
-    .send-btn:active:not(:disabled) svg { transform: scale(0.9); }
-    .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .send-btn svg { width: 16px; height: 16px; transition: transform 0.2s var(--ease-spring); }
+    .send-btn:hover svg { transform: scale(1.1); }
+    .send-btn:active svg { transform: scale(0.9); }
     
     .disclaimer { text-align: center; margin-top: 10px; font-size: 11.5px; color: var(--dim); }
 
